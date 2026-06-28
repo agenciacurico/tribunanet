@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('organizations', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('name', 150);
+            $table->string('short_name', 30)->nullable();
+
+            $table->string('email')->nullable();
+            $table->string('phone', 30)->nullable();
+            $table->string('website')->nullable();
+
+            $table->string('city', 100)->nullable();
+            $table->string('region', 100)->nullable();
+            $table->string('country', 100)->default('Chile');
+
+            $table->string('logo')->nullable()->comment('Ruta del logo');
+
+            $table->boolean('is_active')->default(true);
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('organizations');
+    }
+};
