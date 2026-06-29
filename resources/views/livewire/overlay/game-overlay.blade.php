@@ -12,8 +12,8 @@
                 </div>
 
                 @if($game->serving_team_id == $game->home_team_id)
-                    <div class="text-green-400 text-xl mb-2">
-                        🏐 SAQUE
+                    <div class="flex justify-center mb-3">
+                        <div class="w-5 h-5 rounded-full bg-green-400 shadow-[0_0_15px_#4ade80]"></div>
                     </div>
                 @else
                     <div class="h-8"></div>
@@ -62,8 +62,8 @@
                 </div>
 
                 @if($game->serving_team_id == $game->away_team_id)
-                    <div class="text-green-400 text-xl mb-2">
-                        🏐 SAQUE
+                    <div class="flex justify-center mb-3">
+                        <div class="w-5 h-5 rounded-full bg-green-400 shadow-[0_0_15px_#4ade80]"></div>
                     </div>
                 @else
                     <div class="h-8"></div>
