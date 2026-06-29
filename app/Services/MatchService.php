@@ -26,8 +26,6 @@ class MatchService
 
             $game = Game::create([
 
-                'tournament_id'   => $data['tournament_id'] ?? null,
-
                 'category_id'     => $data['category_id'] ?? $home->category_id,
 
                 'home_team_id'    => $home->id,
@@ -44,9 +42,7 @@ class MatchService
 
                 'current_set'     => 1,
 
-                // NUEVO: cantidad de sets necesarios para ganar
-                // 2 = Mejor de 3
-                // 3 = Mejor de 5
+                // Mejor de 5 por defecto
                 'sets_to_win'     => $data['sets_to_win'] ?? 3,
 
                 'serving_team_id' => $servingTeamId,

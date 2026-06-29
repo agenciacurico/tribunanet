@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Team;
+use App\Services\MatchService;
 use Livewire\Component;
 
 class NewTransmission extends Component
@@ -31,10 +31,22 @@ class NewTransmission extends Component
         }
     }
 
+    public function startGame(MatchService $matchService)
+    {
+        $game = $matchService->create([
+            'home_team_id' => $this->homeTeam,
+            'away_team_id' => $this->awayTeam,
+            'venue'        => $this->venue,
+            'serving_team' => $this->coinWinner,
+        ]);
+
+        return redirect()->route('operator.game', $game);
+    }
+
     public function render()
     {
         return view('livewire.new-transmission', [
-            'teams' => Team::orderBy('name')->get(),
+            'teams' => \App\Models\Team::orderBy('name')->get(),
         ]);
     }
 }

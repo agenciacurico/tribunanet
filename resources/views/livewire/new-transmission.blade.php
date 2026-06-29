@@ -6,15 +6,11 @@
         <div class="text-center mb-12">
 
             <h1 class="text-6xl font-black tracking-widest">
-
                 🎥 NUEVA TRANSMISIÓN
-
             </h1>
 
             <p class="text-slate-400 text-xl mt-4">
-
                 Configura el partido y comienza la transmisión.
-
             </p>
 
         </div>
@@ -39,9 +35,7 @@
             @if($step == 1)
 
                 <h2 class="text-4xl font-black mb-8">
-
                     🏠 Equipo Local
-
                 </h2>
 
                 <select
@@ -66,9 +60,7 @@
             @if($step == 2)
 
                 <h2 class="text-4xl font-black mb-8">
-
                     🚌 Equipo Visita
-
                 </h2>
 
                 <select
@@ -97,9 +89,7 @@
             @if($step == 3)
 
                 <h2 class="text-4xl font-black mb-8">
-
                     🏟 Cancha
-
                 </h2>
 
                 <input
@@ -114,9 +104,7 @@
             @if($step == 4)
 
                 <h2 class="text-4xl font-black mb-8">
-
                     🏐 ¿Quién ganó el sorteo?
-
                 </h2>
 
                 <div class="grid grid-cols-2 gap-6">
@@ -174,6 +162,7 @@
             @else
 
                 <button
+                    wire:click="startGame"
                     class="rounded-xl bg-green-600 hover:bg-green-700 px-10 py-4 text-xl font-black">
 
                     ▶ COMENZAR PARTIDO
