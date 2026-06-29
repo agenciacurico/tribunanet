@@ -1,20 +1,21 @@
 <div class="max-w-5xl mx-auto">
 
-    <div class="rounded-3xl bg-slate-900 p-8 shadow-xl">
+    <div class="rounded-3xl bg-slate-900 p-8 shadow-2xl">
 
-        <h1 class="text-4xl font-black mb-8">
+        <h1 class="text-5xl font-black mb-10">
 
             🎥 Preparar Transmisión
 
         </h1>
 
-        <form wire:submit="createMatch">
+        <form wire:submit.prevent="startTransmission">
 
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-2 gap-8">
 
+                {{-- LOCAL --}}
                 <div>
 
-                    <label class="font-bold">
+                    <label class="block mb-3 text-xl font-bold">
 
                         Equipo Local
 
@@ -22,15 +23,17 @@
 
                     <select
                         wire:model="home_team_id"
-                        class="w-full rounded-xl bg-slate-800 border border-slate-700 mt-2 p-4">
+                        class="w-full rounded-xl bg-slate-800 border border-slate-700 p-4">
 
-                        <option value="">Seleccione...</option>
+                        <option value="">
+                            Seleccione...
+                        </option>
 
                         @foreach($teams as $team)
 
                             <option value="{{ $team->id }}">
 
-                                {{ $team->club->name }} - {{ $team->name }}
+                                {{ $team->club?->name }} - {{ $team->name }}
 
                             </option>
 
@@ -38,11 +41,16 @@
 
                     </select>
 
+                    @error('home_team_id')
+                        <p class="text-red-400 mt-2">{{ $message }}</p>
+                    @enderror
+
                 </div>
 
+                {{-- VISITA --}}
                 <div>
 
-                    <label class="font-bold">
+                    <label class="block mb-3 text-xl font-bold">
 
                         Equipo Visita
 
@@ -50,15 +58,17 @@
 
                     <select
                         wire:model="away_team_id"
-                        class="w-full rounded-xl bg-slate-800 border border-slate-700 mt-2 p-4">
+                        class="w-full rounded-xl bg-slate-800 border border-slate-700 p-4">
 
-                        <option value="">Seleccione...</option>
+                        <option value="">
+                            Seleccione...
+                        </option>
 
                         @foreach($teams as $team)
 
                             <option value="{{ $team->id }}">
 
-                                {{ $team->club->name }} - {{ $team->name }}
+                                {{ $team->club?->name }} - {{ $team->name }}
 
                             </option>
 
@@ -66,11 +76,16 @@
 
                     </select>
 
+                    @error('away_team_id')
+                        <p class="text-red-400 mt-2">{{ $message }}</p>
+                    @enderror
+
                 </div>
 
+                {{-- CATEGORÍA --}}
                 <div>
 
-                    <label class="font-bold">
+                    <label class="block mb-3 text-xl font-bold">
 
                         Categoría
 
@@ -78,9 +93,11 @@
 
                     <select
                         wire:model="category_id"
-                        class="w-full rounded-xl bg-slate-800 border border-slate-700 mt-2 p-4">
+                        class="w-full rounded-xl bg-slate-800 border border-slate-700 p-4">
 
-                        <option value="">Sin categoría</option>
+                        <option value="">
+                            Sin categoría
+                        </option>
 
                         @foreach($categories as $category)
 
@@ -96,89 +113,102 @@
 
                 </div>
 
+                {{-- CANCHA --}}
                 <div>
 
-                    <label class="font-bold">
+                    <label class="block mb-3 text-xl font-bold">
 
                         Cancha
 
                     </label>
 
                     <input
-                        wire:model="venue"
                         type="text"
-                        class="w-full rounded-xl bg-slate-800 border border-slate-700 mt-2 p-4">
+                        wire:model="venue"
+                        placeholder="Ej.: Gimnasio Abraham Milad"
+                        class="w-full rounded-xl bg-slate-800 border border-slate-700 p-4">
+
+                    @error('venue')
+                        <p class="text-red-400 mt-2">{{ $message }}</p>
+                    @enderror
 
                 </div>
 
+                {{-- FECHA --}}
                 <div>
 
-                    <label class="font-bold">
+                    <label class="block mb-3 text-xl font-bold">
 
                         Fecha
 
                     </label>
 
                     <input
-                        wire:model="game_date"
                         type="date"
-                        class="w-full rounded-xl bg-slate-800 border border-slate-700 mt-2 p-4">
+                        wire:model="game_date"
+                        class="w-full rounded-xl bg-slate-800 border border-slate-700 p-4">
 
                 </div>
 
+                {{-- HORA --}}
                 <div>
 
-                    <label class="font-bold">
+                    <label class="block mb-3 text-xl font-bold">
 
                         Hora
 
                     </label>
 
                     <input
-                        wire:model="game_time"
                         type="time"
-                        class="w-full rounded-xl bg-slate-800 border border-slate-700 mt-2 p-4">
+                        wire:model="game_time"
+                        class="w-full rounded-xl bg-slate-800 border border-slate-700 p-4">
 
                 </div>
 
             </div>
 
-            <div class="mt-8">
+            <div class="mt-10">
 
                 <h2 class="text-2xl font-bold mb-4">
 
-                    ¿Quién comienza con el saque?
+                    🏐 ¿Quién comienza con el saque?
 
                 </h2>
 
-                <label class="mr-8">
+                <div class="flex gap-8">
 
-                    <input
-                        type="radio"
-                        wire:model="serving_team"
-                        value="home">
+                    <label class="flex items-center gap-2">
 
-                    Local
+                        <input
+                            type="radio"
+                            wire:model="serving_team"
+                            value="home">
 
-                </label>
+                        Local
 
-                <label>
+                    </label>
 
-                    <input
-                        type="radio"
-                        wire:model="serving_team"
-                        value="away">
+                    <label class="flex items-center gap-2">
 
-                    Visita
+                        <input
+                            type="radio"
+                            wire:model="serving_team"
+                            value="away">
 
-                </label>
+                        Visita
+
+                    </label>
+
+                </div>
 
             </div>
 
             <button
-                class="mt-10 w-full rounded-2xl bg-cyan-600 hover:bg-cyan-700 py-6 text-3xl font-black">
+                type="submit"
+                class="mt-10 w-full rounded-2xl bg-cyan-600 hover:bg-cyan-700 transition py-6 text-3xl font-black">
 
-                ▶ COMENZAR PARTIDO
+                🔴 INICIAR TRANSMISIÓN
 
             </button>
 
