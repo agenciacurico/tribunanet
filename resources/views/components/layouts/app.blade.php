@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TribunaNet Operador</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ config('app.name', 'TribunaNet') }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @livewireStyles
+
 </head>
-<body class="bg-slate-900 text-white">
+
+<body class="bg-slate-950 text-white">
 
     {{ $slot }}
 
     @livewireScripts
+
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-<div wire:poll.500ms class="fixed bottom-8 left-1/2 -translate-x-1/2 max-w-[1200px] w-[95vw]">
+<div wire:poll.1s class="fixed bottom-8 left-1/2 -translate-x-1/2 max-w-[1200px] w-[95vw]">
 
     <div class="bg-slate-900/90 backdrop-blur-xl rounded-2xl shadow-2xl px-8 py-5">
 
@@ -19,7 +19,9 @@
                     <div class="h-8"></div>
                 @endif
 
-                <div class="text-cyan-400 text-7xl font-black leading-none">
+                <div
+                    id="home-score"
+                    class="text-cyan-400 text-7xl font-black leading-none">
                     {{ str_pad($currentSet->home_score, 2, '0', STR_PAD_LEFT) }}
                 </div>
 
@@ -69,7 +71,9 @@
                     <div class="h-8"></div>
                 @endif
 
-                <div class="text-red-400 text-7xl font-black leading-none">
+                <div
+                    id="away-score"
+                    class="text-red-400 text-7xl font-black leading-none">
                     {{ str_pad($currentSet->away_score, 2, '0', STR_PAD_LEFT) }}
                 </div>
 

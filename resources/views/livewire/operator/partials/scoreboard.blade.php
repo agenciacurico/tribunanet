@@ -83,7 +83,10 @@
 
         <div class="text-center">
 
-            <div class="text-[140px] font-black leading-none text-cyan-400">
+            <div
+                wire:key="home-score-{{ $currentSet->home_score }}"
+                class="text-[140px] font-black leading-none text-cyan-400 score-pop"
+            >
                 {{ str_pad($currentSet->home_score, 2, '0', STR_PAD_LEFT) }}
             </div>
 
@@ -99,7 +102,10 @@
 
         <div class="text-center">
 
-            <div class="text-[140px] font-black leading-none text-red-400">
+            <div
+                wire:key="away-score-{{ $currentSet->away_score }}"
+                class="text-[140px] font-black leading-none text-red-400 score-pop"
+            >
                 {{ str_pad($currentSet->away_score, 2, '0', STR_PAD_LEFT) }}
             </div>
 

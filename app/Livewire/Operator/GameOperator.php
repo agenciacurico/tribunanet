@@ -5,6 +5,7 @@ namespace App\Livewire\Operator;
 use App\Models\Game;
 use App\Models\GameEvent;
 use App\Models\GameSet;
+use App\Models\TeamMember;
 use App\Services\ScoreService;
 use Livewire\Component;
 
@@ -19,6 +20,16 @@ class GameOperator extends Component
     public int $awaySets = 0;
 
     public ?int $firstServeTeam = null;
+
+    /**
+     * Jugadores del equipo local.
+     */
+    public $homePlayers = [];
+
+    /**
+     * Jugadores del equipo visita.
+     */
+    public $awayPlayers = [];
 
     /**
      * Inicializa el operador.
@@ -112,6 +123,39 @@ class GameOperator extends Component
         $this->awaySets = $this->game->sets()
             ->where('winner_team_id', $this->game->away_team_id)
             ->count();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Jugadores
+        |--------------------------------------------------------------------------
+        */
+
+        $this->homePlayers = $this->game->homeTeam
+            ->members()
+            ->with('person')
+            ->get();
+
+        $this->awayPlayers = $this->game->awayTeam
+            ->members()
+            ->with('person')
+            ->get();
+    }
+
+    /**
+     * Mostrar ficha del jugador.
+     */
+    public function showPlayer(int $teamMemberId): void
+    {
+        $player = TeamMember::with(['person', 'team'])
+            ->findOrFail($teamMemberId);
+
+        // Por ahora solo verificaremos que llega correctamente.
+        // En el siguiente paso enviaremos esta información al overlay.
+
+        logger()->info('Mostrar jugador', [
+            'id' => $player->id,
+            'nombre' => $player->person->full_name,
+        ]);
     }
 
     /**

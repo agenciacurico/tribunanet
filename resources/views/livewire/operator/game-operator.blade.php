@@ -123,6 +123,9 @@
                     {{-- CRONOLOGÍA --}}
                     @include('livewire.operator.partials.events')
 
+                    {{-- JUGADORES --}}
+                    @include('livewire.operator.partials.players')
+
                     {{-- VISTA PREVIA --}}
                     @include('livewire.operator.partials.preview')
 
