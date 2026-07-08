@@ -21,15 +21,21 @@ class Game extends Model
         'current_set',
         'sets_to_win',
         'serving_team_id',
+
+        // NUEVO
+        'featured_team_member_id',
+        'featured_until',
+
         'started_at',
         'ended_at',
     ];
 
     protected $casts = [
-        'game_date'  => 'date',
-        'game_time'  => 'datetime:H:i',
-        'started_at' => 'datetime',
-        'ended_at'   => 'datetime',
+        'game_date'       => 'date',
+        'game_time'       => 'datetime:H:i',
+        'featured_until'  => 'datetime',
+        'started_at'      => 'datetime',
+        'ended_at'        => 'datetime',
     ];
 
     /*
@@ -63,15 +69,21 @@ class Game extends Model
         return $this->belongsTo(Team::class, 'serving_team_id');
     }
 
+    /**
+     * Jugador destacado actualmente.
+     */
+    public function featuredPlayer()
+    {
+        return $this->belongsTo(TeamMember::class, 'featured_team_member_id')
+            ->with('person', 'team');
+    }
+
     public function sets()
     {
         return $this->hasMany(GameSet::class)
             ->orderBy('set_number');
     }
 
-    /**
-     * Todos los eventos del partido.
-     */
     public function events()
     {
         return $this->hasMany(GameEvent::class);
@@ -101,6 +113,16 @@ class Game extends Model
         return $this->sets()
             ->where('winner_team_id', $this->away_team_id)
             ->count();
+    }
+
+    /**
+     * Indica si existe una ficha visible.
+     */
+    public function hasFeaturedPlayer(): bool
+    {
+        return $this->featured_team_member_id !== null
+            && $this->featured_until !== null
+            && now()->lt($this->featured_until);
     }
 
     /*

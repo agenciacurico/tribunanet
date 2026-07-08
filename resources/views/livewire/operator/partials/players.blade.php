@@ -28,6 +28,7 @@
                         </span>
 
                     </div>
+                    
 
                     <button
                         wire:click="showPlayer({{ $player->id }})"

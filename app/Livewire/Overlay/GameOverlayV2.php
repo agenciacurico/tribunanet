@@ -19,16 +19,25 @@ class GameOverlayV2 extends Component
     public function mount(Game $game): void
     {
         $this->game = $game;
+
+        $this->loadGame();
     }
 
     protected function loadGame(): void
     {
-        $this->game->refresh();
+        $this->game->refresh()->load([
+            'homeTeam',
+            'awayTeam',
+            'featuredPlayer.person',
+            'featuredPlayer.team',
+        ]);
 
         $this->currentSet = $this->game->sets()
             ->where('set_number', $this->game->current_set)
             ->firstOrCreate(
-                ['set_number' => $this->game->current_set],
+                [
+                    'set_number' => $this->game->current_set,
+                ],
                 [
                     'home_score' => 0,
                     'away_score' => 0,

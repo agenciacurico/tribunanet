@@ -16,11 +16,6 @@ class TeamsTable
         return $table
             ->columns([
 
-                TextColumn::make('organization.name')
-                    ->label('Organización')
-                    ->searchable()
-                    ->sortable(),
-
                 TextColumn::make('club.name')
                     ->label('Club')
                     ->searchable()
@@ -28,6 +23,7 @@ class TeamsTable
 
                 TextColumn::make('category.name')
                     ->label('Categoría')
+                    ->searchable()
                     ->sortable(),
 
                 TextColumn::make('name')
@@ -44,7 +40,7 @@ class TeamsTable
                     ->boolean(),
 
             ])
-            ->defaultSort('name')
+            ->defaultSort('club.name')
             ->filters([
                 //
             ])

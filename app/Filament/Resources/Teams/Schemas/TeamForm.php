@@ -16,16 +16,9 @@ class TeamForm
         return $schema
             ->components([
 
-                Section::make('Información General')
+                Section::make('Información General ')
                     ->columns(2)
                     ->schema([
-
-                        Select::make('organization_id')
-                            ->label('Organización')
-                            ->relationship('organization', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->required(),
 
                         Select::make('club_id')
                             ->label('Club')

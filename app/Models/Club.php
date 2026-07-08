@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Club extends Model
 {
     protected $fillable = [
-        'organization_id',
         'name',
         'short_name',
         'city',
@@ -22,12 +21,25 @@ class Club extends Model
         'active' => 'boolean',
     ];
 
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Relaciones
+    |--------------------------------------------------------------------------
+    */
+
     public function teams()
-{
-    return $this->hasMany(Team::class);
-}
+    {
+        return $this->hasMany(Team::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+
+    public function getDisplayNameAttribute(): string
+    {
+        return $this->short_name ?: $this->name;
+    }
 }

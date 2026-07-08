@@ -12,10 +12,6 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('organization_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
             $table->string('name', 150);
 
             $table->string('short_name', 30)->nullable();
@@ -29,6 +25,7 @@ return new class extends Migration
             $table->boolean('active')->default(true);
 
             $table->timestamps();
+
         });
     }
 

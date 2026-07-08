@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -15,43 +16,48 @@ class ClubsTable
     {
         return $table
             ->columns([
-                TextColumn::make('organization_id')
-                    ->numeric()
-                    ->sortable(),
+
+                ImageColumn::make('logo')
+                    ->label('Logo')
+                    ->circular(),
+
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Club')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('short_name')
-                    ->searchable(),
+                    ->label('Nombre Corto')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('city')
-                    ->searchable(),
+                    ->label('Ciudad')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('region')
-                    ->searchable(),
-                TextColumn::make('logo')
-                    ->searchable(),
-                TextColumn::make('uniform_home')
-                    ->searchable(),
-                TextColumn::make('uniform_away')
-                    ->searchable(),
+                    ->label('Región')
+                    ->searchable()
+                    ->sortable(),
+
                 IconColumn::make('active')
+                    ->label('Activo')
                     ->boolean(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
+            ->defaultSort('name')
             ->filters([
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Editar'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->label('Eliminar'),
                 ]),
             ]);
     }

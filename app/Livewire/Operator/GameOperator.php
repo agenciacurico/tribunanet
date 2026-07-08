@@ -124,39 +124,39 @@ class GameOperator extends Component
             ->where('winner_team_id', $this->game->away_team_id)
             ->count();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Jugadores
-        |--------------------------------------------------------------------------
-        */
-
         $this->homePlayers = $this->game->homeTeam
             ->members()
             ->with('person')
+            ->orderBy('jersey_number')
             ->get();
 
         $this->awayPlayers = $this->game->awayTeam
             ->members()
             ->with('person')
+            ->orderBy('jersey_number')
             ->get();
     }
 
     /**
      * Mostrar ficha del jugador.
      */
-    public function showPlayer(int $teamMemberId): void
-    {
-        $player = TeamMember::with(['person', 'team'])
-            ->findOrFail($teamMemberId);
+public function showPlayer(int $teamMemberId): void
+{
+    $player = TeamMember::findOrFail($teamMemberId);
 
-        // Por ahora solo verificaremos que llega correctamente.
-        // En el siguiente paso enviaremos esta información al overlay.
+    $this->game->featured_team_member_id = $player->id;
+    $this->game->featured_until = now()->addSeconds(6);
 
-        logger()->info('Mostrar jugador', [
-            'id' => $player->id,
-            'nombre' => $player->person->full_name,
-        ]);
-    }
+    $this->game->save();
+
+    logger()->info('========== SHOW PLAYER ==========');
+    logger()->info('Game ID: '.$this->game->id);
+    logger()->info('Player ID: '.$player->id);
+    logger()->info('Featured: '.$this->game->featured_team_member_id);
+    logger()->info('Until: '.$this->game->featured_until);
+
+    $this->game->refresh();
+}
 
     /**
      * Renderizar componente.
@@ -171,4 +171,8 @@ class GameOperator extends Component
                 ->get(),
         ]);
     }
+    public function prueba()
+{
+    dd('CLICK OK');
+}
 }

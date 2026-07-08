@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     protected $fillable = [
-        'organization_id',
         'club_id',
         'category_id',
         'name',
@@ -20,10 +19,11 @@ class Team extends Model
         'active' => 'boolean',
     ];
 
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Relaciones
+    |--------------------------------------------------------------------------
+    */
 
     public function club()
     {
@@ -36,7 +36,18 @@ class Team extends Model
     }
 
     public function members()
-{
-    return $this->hasMany(TeamMember::class);
-}
+    {
+        return $this->hasMany(TeamMember::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Helpers
+    |--------------------------------------------------------------------------
+    */
+
+    public function getDisplayNameAttribute(): string
+    {
+        return $this->name;
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\People\Schemas;
 
-use App\Models\Organization;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -21,12 +20,6 @@ class PersonForm
                 Section::make('Información Personal')
                     ->columns(2)
                     ->schema([
-
-                        Select::make('organization_id')
-                            ->label('Organización')
-                            ->options(Organization::orderBy('name')->pluck('name', 'id'))
-                            ->searchable()
-                            ->required(),
 
                         TextInput::make('rut')
                             ->label('RUT'),
@@ -56,15 +49,18 @@ class PersonForm
                         TextInput::make('phone')
                             ->label('Teléfono'),
 
-                        FileUpload::make('photo')
-                            ->label('Fotografía')
-                            ->image()
-                            ->directory('people'),
+                      FileUpload::make('photo')
+    ->label('Fotografía')
+    ->image()
+    ->disk('public')
+    ->directory('people'),
 
                         Toggle::make('active')
                             ->label('Activo')
                             ->default(true),
+
                     ]),
+
             ]);
     }
 }

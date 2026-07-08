@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources\Clubs\Schemas;
 
-use App\Models\Organization;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
@@ -21,24 +19,22 @@ class ClubForm
                     ->columns(2)
                     ->schema([
 
-                        Select::make('organization_id')
-                            ->label('Organización')
-                            ->options(Organization::orderBy('name')->pluck('name', 'id'))
-                            ->searchable()
-                            ->required(),
-
                         TextInput::make('name')
-                            ->label('Nombre')
-                            ->required(),
+                            ->label('Nombre del Club')
+                            ->required()
+                            ->maxLength(150),
 
                         TextInput::make('short_name')
-                            ->label('Nombre corto'),
+                            ->label('Nombre Corto')
+                            ->maxLength(50),
 
                         TextInput::make('city')
-                            ->label('Ciudad'),
+                            ->label('Ciudad')
+                            ->maxLength(100),
 
                         TextInput::make('region')
-                            ->label('Región'),
+                            ->label('Región')
+                            ->maxLength(100),
 
                         FileUpload::make('logo')
                             ->label('Logo')
@@ -48,7 +44,9 @@ class ClubForm
                         Toggle::make('active')
                             ->label('Activo')
                             ->default(true),
+
                     ]),
+
             ]);
     }
 }
