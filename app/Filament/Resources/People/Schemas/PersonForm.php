@@ -49,7 +49,7 @@ class PersonForm
                         TextInput::make('phone')
                             ->label('Teléfono'),
 
-FileUpload::make('photo')
+FileUpload::make('logo')
     ->label('Fotografía')
     ->image()
     ->directory('people'),
