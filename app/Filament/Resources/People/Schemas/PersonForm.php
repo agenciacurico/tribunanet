@@ -49,10 +49,9 @@ class PersonForm
                         TextInput::make('phone')
                             ->label('Teléfono'),
 
-                      FileUpload::make('photo')
+FileUpload::make('photo')
     ->label('Fotografía')
     ->image()
-    ->disk('public')
     ->directory('people'),
 
                         Toggle::make('active')
